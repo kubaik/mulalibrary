@@ -32,13 +32,14 @@ public class Mula extends AppCompatActivity {
     }
 
     private void navigate(Context context, Bundle bundle) {
-        boolean isPluginInstalleed = isPackageInstalled("com.plugin.consumerapp", context);
+        final String appPackageName = "com.plugin.consumerapp";
+        boolean isPluginInstalleed = isPackageInstalled(appPackageName, context);
         if (isPluginInstalleed) {
             Intent intent = new Intent(context, Main.class);
             intent.putExtras(bundle);
             context.startActivity(intent);
         } else {
-            final String appPackageName = "com.cellulant.consumerapp"; // getPackageName() from Context or Activity object
+            // getPackageName() from Context or Activity object
             try {
                 context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
             } catch (android.content.ActivityNotFoundException anfe) {
