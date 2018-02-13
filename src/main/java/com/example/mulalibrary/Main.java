@@ -53,6 +53,7 @@ public class Main extends AppCompatActivity {
     private static final String ACTION_PICK_RESPLUGIN = "com.plugin.intent.action.PICK_RESPLUGIN";
     private static final String KEY_PKG = "pkg";
     private static final String KEY_SERVICENAME = "servicename";
+    private String mPhoneNUmber = "";
 
 
     @Override
@@ -83,8 +84,8 @@ public class Main extends AppCompatActivity {
         Intent in = getIntent();
         Bundle b = in.getExtras();
         if (b != null) {
-            String phoneNumber = b.getString("PHONE");
-            Log.d(LOG_TAG, "@fillPluginList: phoneNumber " + phoneNumber);
+            mPhoneNUmber = b.getString("PHONE");
+            Log.d(LOG_TAG, "@fillPluginList: mPhoneNUmber " + mPhoneNUmber);
         } else {
             Log.d(LOG_TAG, "@fillPluginList: bundle is null ");
 
@@ -151,8 +152,9 @@ public class Main extends AppCompatActivity {
             Intent intent = new Intent();
             HashMap<String, String> data = services.get(i);
             intent.setClassName(data.get(KEY_PKG), data.get(KEY_SERVICENAME));
+            Log.d(LOG_TAG, "@fill bindPluginServices: mPhoneNUmber " + mPhoneNUmber);
             Bundle bundle = new Bundle();
-            bundle.putString("PHONE", "254721596868");
+            bundle.putString("PHONE", mPhoneNUmber);
             intent.putExtras(bundle);
             Log.d(LOG_TAG, "@fill bindPluginServices: " + intent);
             bindService(intent, pluginServiceConnection[i], Context.BIND_AUTO_CREATE);
@@ -209,7 +211,7 @@ public class Main extends AppCompatActivity {
             parentView.removeAllViews();
             View view = inflater.inflate(xres, parentView);
             adjustSubViewIds(parentView, idxToIdOffset(rowCtr));
-            Intent serviceIntent = new Intent()
+           /* Intent serviceIntent = new Intent()
                     .setComponent(new ComponentName(
                             packageName,
                             packageName + ".MulaPluginService"));
@@ -217,7 +219,7 @@ public class Main extends AppCompatActivity {
             bundle.putString("PHONE", "254721596767");
             serviceIntent.putExtras(bundle);
             startService(serviceIntent);
-
+*/
 
         } catch (PackageManager.NameNotFoundException ex) {
             Log.e(LOG_TAG, "NameNotFoundException", ex);
