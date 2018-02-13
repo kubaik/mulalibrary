@@ -79,6 +79,15 @@ public class Main extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        Intent in = getIntent();
+        Bundle b = in.getExtras();
+        if (b != null) {
+            String phoneNumber = b.getString("PHONE");
+            Log.d(LOG_TAG, "@fillPluginList: phoneNumber " + phoneNumber);
+        } else {
+            Log.d(LOG_TAG, "@fillPluginList: bundle is null ");
+
+        }
         fillPluginList(getApplicationContext());
     }
 
