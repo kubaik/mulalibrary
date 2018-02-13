@@ -1,6 +1,7 @@
 package com.example.mulalibrary;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -150,7 +151,10 @@ public class Main extends AppCompatActivity {
             Intent intent = new Intent();
             HashMap<String, String> data = services.get(i);
             intent.setClassName(data.get(KEY_PKG), data.get(KEY_SERVICENAME));
-            Log.d(LOG_TAG, "bindPluginServices: " + intent);
+            Bundle bundle = new Bundle();
+            bundle.putString("PHONE", "254721596868");
+            intent.putExtras(bundle);
+            Log.d(LOG_TAG, "@fill bindPluginServices: " + intent);
             bindService(intent, pluginServiceConnection[i], Context.BIND_AUTO_CREATE);
         }
     }
@@ -205,6 +209,16 @@ public class Main extends AppCompatActivity {
             parentView.removeAllViews();
             View view = inflater.inflate(xres, parentView);
             adjustSubViewIds(parentView, idxToIdOffset(rowCtr));
+            Intent serviceIntent = new Intent()
+                    .setComponent(new ComponentName(
+                            packageName,
+                            packageName + ".MulaPluginService"));
+            Bundle bundle = new Bundle();
+            bundle.putString("PHONE", "254721596767");
+            serviceIntent.putExtras(bundle);
+            startService(serviceIntent);
+
+
         } catch (PackageManager.NameNotFoundException ex) {
             Log.e(LOG_TAG, "NameNotFoundException", ex);
         }
