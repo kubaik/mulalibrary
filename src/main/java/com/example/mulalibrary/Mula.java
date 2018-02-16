@@ -34,6 +34,8 @@ public class Mula extends AppCompatActivity {
     private void navigate(Context context, Bundle bundle) {
         final String appPackageName = "com.plugin.consumerapp";
         boolean isPluginInstalleed = isPackageInstalled(appPackageName, context);
+        String marketDetails = "market://details?id=";
+        String playStoreUrl = "https://play.google.com/store/apps/details?id=";
         if (isPluginInstalleed) {
             Intent intent = new Intent(context, Main.class);
             intent.putExtras(bundle);
@@ -41,9 +43,9 @@ public class Mula extends AppCompatActivity {
         } else {
             // getPackageName() from Context or Activity object
             try {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(marketDetails + appPackageName)));
             } catch (android.content.ActivityNotFoundException anfe) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(playStoreUrl + appPackageName)));
             }
         }
     }
