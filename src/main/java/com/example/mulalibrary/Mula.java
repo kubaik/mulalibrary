@@ -1,5 +1,6 @@
 package com.example.mulalibrary;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,7 +26,7 @@ public class Mula extends AppCompatActivity {
 
     public void configMula(Context context, String phoneNumber) {
         Bundle bundle = new Bundle();
-        bundle.putString("PHONE", phoneNumber);
+        bundle.putString("phoneNumber", phoneNumber);
         navigate(context, bundle);
 
 
@@ -37,9 +38,10 @@ public class Mula extends AppCompatActivity {
         String marketDetails = "market://details?id=";
         String playStoreUrl = "https://play.google.com/store/apps/details?id=";
         if (isPluginInstalleed) {
-            Intent intent = new Intent(context, Main.class);
+            Intent intent = new Intent();
             intent.putExtras(bundle);
-            context.startActivity(intent);
+            intent.setComponent(new ComponentName("com.plugin.consumerapp", "com.plugin.consumerapp.ui.HomeActivity"));
+            startActivity(intent);
         } else {
             // getPackageName() from Context or Activity object
             try {
