@@ -38,7 +38,7 @@ public class Mula extends AppCompatActivity {
         String marketDetails = "market://details?id=";
         String playStoreUrl = "https://play.google.com/store/apps/details?id=";
         if (isPluginInstalleed) {
-            Intent intent = new Intent();
+            Intent intent = new Intent(context, Main.class);
             intent.putExtras(bundle);
             intent.setComponent(new ComponentName("com.plugin.consumerapp", "com.plugin.consumerapp.ui.HomeActivity"));
             startActivity(intent);
